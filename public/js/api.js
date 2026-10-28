@@ -58,6 +58,7 @@ function createNetApi() {
     },
     join: name => post('/api/join', { name }),
     submit: (slug, choice) => post('/api/submit', { slug, ...choice }),
+    leave: slug => post('/api/leave', { slug }),
     host: (action, payload = {}, key = '') => post('/api/host', { action, ...payload }, { 'x-host-key': key }),
     onChange() {},
   };

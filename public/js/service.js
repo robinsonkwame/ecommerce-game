@@ -121,6 +121,17 @@ export function createService(store, { codeFor, now = () => Date.now(), settings
       return team;
     },
 
+    // A team can leave while the game is still in the lobby (a typo in its
+    // name, the wrong group). It removes the team for every phone on it.
+    async leave(slug) {
+      const { game } = await loadGame();
+      if (game.phase !== 'lobby') throw new GameError('You can only leave before the game starts. Ask the host if you need to.');
+      slug = cleanSlug(slug);
+      if (!slug || !(await store.get(teamKey(game.id, slug)))) return { ok: true };  // already gone
+      await store.del(teamKey(game.id, slug));
+      return { ok: true };
+    },
+
     async submit(slug, choice) {
       const { game } = await loadGame();
       slug = cleanSlug(slug);

@@ -49,6 +49,7 @@ export function createMockApi() {
 
     async join(name) { await latency(); return svc.join(name); },
     async submit(slug, choice) { await latency(); return svc.submit(slug, choice); },
+    async leave(slug) { await latency(); return svc.leave(slug); },
 
     async host(action, payload = {}) {
       await latency();

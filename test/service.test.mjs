@@ -175,3 +175,16 @@ test('joining is closed after the game finishes', async () => {
   await svc.host('finish');
   await assert.rejects(svc.join('Late'), /game is over/);
 });
+
+test('a team can leave from the lobby, but not once the game has started', async () => {
+  const { svc } = setup();
+  await svc.join('Typo Teem');
+  await svc.join('Other');
+  await svc.leave('typo-teem');
+  assert.equal((await svc.studentState('typo-teem')).team, null, 'its phones fall back to the join screen');
+  assert.equal((await svc.studentState('')).teamCount, 1);
+  await svc.leave('typo-teem');  // leaving twice is harmless
+  await svc.host('start');
+  await assert.rejects(svc.leave('other'), /only leave before the game starts/);
+  assert.ok((await svc.studentState('other')).team);
+});

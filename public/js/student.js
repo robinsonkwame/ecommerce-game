@@ -298,6 +298,24 @@ function renderPlaybook() {
   $('#pbTable').innerHTML = `<tr><th>Quarter</th><th>Influencers</th><th>Service</th><th>Innovation</th></tr>${rows}`;
 }
 
+// Lobby only: remove this team (for every phone on it) and go back to joining.
+async function leave() {
+  const name = S.team?.name || 'this team';
+  if (!confirm(`Leave "${name}"? The team is removed for everyone on it, so teammates' phones go back to the join screen too.`)) return;
+  $('#leaveBtn').disabled = true;
+  try {
+    await S.api.leave(S.slug);
+    localStorage.removeItem('ecg:slug');
+    S.slug = ''; S.team = null;
+    $('#nameInput').value = '';
+    $('#leaveError').textContent = '';
+    S.poll.refresh();
+  } catch (e) {
+    $('#leaveError').textContent = e.message;
+    S.poll.refresh();
+  } finally { $('#leaveBtn').disabled = false; }
+}
+
 async function join() {
   const name = $('#nameInput').value.trim();
   if (!name) { $('#joinError').textContent = 'Enter a team name'; return; }
@@ -330,6 +348,7 @@ async function main() {
     });
   }
   $('#joinBtn').onclick = join;
+  $('#leaveBtn').onclick = leave;
   $('#nameInput').onkeydown = e => { if (e.key === 'Enter') join(); };
   $('#lockBtn').onclick = lockIn;
   $('#copyBtn').onclick = async () => {
