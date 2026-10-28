@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Host · E-commerce strategy game</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%23fff%27 stroke=%27%231d1d1b%27 stroke-width=%272%27/%3E%3Ccircle cx=%279%27 cy=%279%27 r=%273%27/%3E%3Ccircle cx=%2723%27 cy=%279%27 r=%273%27/%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%273%27/%3E%3Ccircle cx=%279%27 cy=%2723%27 r=%273%27/%3E%3Ccircle cx=%2723%27 cy=%2723%27 r=%273%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="host">
+  <aside class="controls">
+    <h1>Host controls</h1>
+    <p class="small muted" id="modeLine"></p>
+    <form id="keyForm" hidden>
+      <label for="keyInput"><strong>Host key</strong></label>
+      <p class="small muted">The HOST_KEY you set in Netlify's environment variables.</p>
+      <input type="password" id="keyInput" autocomplete="current-password">
+      <p class="error" id="keyError"></p>
+      <button class="btn primary big" type="submit">Unlock controls</button>
+    </form>
+    <div id="hostUi">
+    <div class="row" style="display:flex;justify-content:space-between;align-items:center;gap:.5rem">
+      <strong id="cRound">Lobby</strong>
+      <span class="pill muted" id="cPhase">lobby</span>
+    </div>
+    <p class="small muted" id="cSubmitted" style="margin:.4rem 0 0"></p>
+    <div class="phase-actions" id="phaseActions"></div>
+    <label class="small" id="dieRow" hidden>Die value
+      <select id="dieValue">
+        <option value="">Random (rolled by the server)</option>
+        <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option>
+      </select>
+      <span class="muted">Pick a number to use a physical die instead.</span>
+    </label>
+    <table class="teams" id="teamTable"></table>
+    <div class="phase-actions">
+      <button class="btn small" id="copyLinkBtn">Copy join link (paste into Canvas or chat)</button>
+      <button class="btn small" id="projectorBtn">Hide controls (projector)</button>
+      <button class="btn small danger" id="resetBtn">Reset game</button>
+    </div>
+    <details id="debugTools" hidden>
+      <summary class="small">Simulation tools</summary>
+      <div class="phase-actions">
+        <button class="btn small" id="botsBtn">Add 4 bot teams</button>
+        <button class="btn small" id="botsChooseBtn">Bots choose now</button>
+        <a class="btn small" href="index.html" target="_blank" style="text-decoration:none">Open a student tab ↗</a>
+      </div>
+    </details>
+    </div>
+  </aside>
+
+  <main class="board">
+    <div class="headline">
+      <h1 id="bTitle">E-commerce strategy game</h1>
+      <span class="pill" id="bPill"></span>
+    </div>
+    <p class="muted" id="bBlurb"></p>
+
+    <section id="bLobby" hidden>
+      <div class="joinbox">
+        <div class="qr" id="qr"></div>
+        <div>
+          <p class="lobby-big">Scan to join, or open the link from the chat</p>
+          <div class="lobby-url" id="joinUrl"></div>
+          <p class="muted">Teams that have joined</p>
+          <div class="chips" id="lobbyChips"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="bPlay" hidden>
+      <div class="dice-row">
+        <div id="die"></div>
+        <div class="dice-text" id="diceText"></div>
+      </div>
+      <div class="chips" id="resultChips"></div>
+      <table class="lb" id="lb"></table>
+    </section>
+
+    <section id="bDebrief" hidden>
+      <h2>Final standings</h2>
+      <table class="lb" id="lbFinal"></table>
+      <h3 style="margin-top:1.5rem" id="brokeTitle">Fell under $0</h3>
+      <div class="chips" id="brokeChips"></div>
+      <h3 style="margin-top:1.5rem">Verify a completion code</h3>
+      <div class="verify">
+        <input type="text" id="verifyInput" placeholder="K7M2QX" maxlength="6">
+        <button class="btn" id="verifyBtn">Verify</button>
+        <span id="verifyOut"></span>
+      </div>
+      <button class="btn" id="csvBtn">Download CSV for the gradebook</button>
+    </section>
+  </main>
+</div>
+<button class="btn small" id="showControls" style="position:fixed;top:.5rem;left:.5rem;z-index:10" hidden>Show controls</button>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script type="module" src="js/host.js"></script>
+</body>
+</html>

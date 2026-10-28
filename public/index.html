@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>E-commerce strategy game</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%23fff%27 stroke=%27%231d1d1b%27 stroke-width=%272%27/%3E%3Ccircle cx=%279%27 cy=%279%27 r=%273%27/%3E%3Ccircle cx=%2723%27 cy=%279%27 r=%273%27/%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%273%27/%3E%3Ccircle cx=%279%27 cy=%2723%27 r=%273%27/%3E%3Ccircle cx=%2723%27 cy=%2723%27 r=%273%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+<meta name="theme-color" content="#f4f1ea">
+</head>
+<body>
+<div class="app">
+  <header class="topbar" id="topbar" hidden>
+    <div class="row">
+      <div class="name" id="teamName"></div>
+      <span class="pill" id="roundPill"></span>
+    </div>
+    <div class="tiles">
+      <div class="tile"><div class="label">Money</div><div class="value" id="tMoney">$600</div></div>
+      <div class="tile"><div class="label">Points</div><div class="value" id="tPoints">0</div></div>
+      <div class="tile risk" id="tRiskTile"><div class="label">Risk</div><div class="value" id="tRisk">0</div></div>
+    </div>
+  </header>
+
+  <main>
+    <section id="join" class="card" hidden>
+      <h1>E-commerce strategy game</h1>
+      <p class="muted">Eight quarters. Pick a strategy each quarter, then the host rolls the Risk Dice. Highest points after two years wins.</p>
+      <label for="nameInput"><strong>Team name</strong></label>
+      <input type="text" id="nameInput" placeholder="The Fulfillers" maxlength="40" autocomplete="off">
+      <p class="error" id="joinError"></p>
+      <button class="btn primary big" id="joinBtn">Join the game</button>
+    </section>
+
+    <section id="lobby" class="card" hidden>
+      <h2>You're in</h2>
+      <p class="muted">Waiting for the host to start the game. Use this time to look at the playbook and sketch a two-year plan.</p>
+      <p id="lobbyCount" class="small muted"></p>
+    </section>
+
+    <section id="choose" hidden>
+      <div class="vibe">
+        <h2 id="vibeName"></h2>
+        <p class="muted" id="vibeBlurb"></p>
+      </div>
+      <div class="choices" id="choices"></div>
+      <p class="preview" id="preview"></p>
+      <div class="lockrow">
+        <button class="btn primary big" id="lockBtn">Lock in</button>
+        <p class="error" id="lockError"></p>
+        <p class="small muted" id="lockNote" style="text-align:center"></p>
+      </div>
+    </section>
+
+    <section id="rolled" hidden>
+      <div class="dice-wrap">
+        <div id="die"></div>
+        <div class="dice-label" id="diceLabel">Rolling the Risk Dice…</div>
+      </div>
+      <div id="outcome" hidden>
+        <div class="verdict" id="verdict"></div>
+        <div class="delta" id="delta"></div>
+        <p class="small muted" style="text-align:center" id="afterNote">Waiting for the host to open the next quarter…</p>
+      </div>
+    </section>
+
+    <section id="finished" hidden>
+      <div class="card">
+        <div class="rank" id="finalRank"></div>
+        <p class="muted" style="text-align:center" id="finalLine"></p>
+        <div class="timeline" id="timeline"></div>
+      </div>
+      <div class="card">
+        <h3 style="text-align:center">Your completion code</h3>
+        <div class="code" id="codeBox"></div>
+        <button class="btn big" id="copyBtn">Copy code</button>
+        <p class="small muted" style="margin-top:.75rem">Paste this code into the assignment to get credit. It was generated from your final score and the time you finished, so it is unique to your team.</p>
+      </div>
+    </section>
+
+    <details class="playbook card" id="playbook" hidden>
+      <summary>Playbook: all eight quarters</summary>
+      <p class="small muted" id="pbRules"></p>
+      <table id="pbTable"></table>
+    </details>
+  </main>
+</div>
+
+<details class="debug" id="debug" hidden>
+  <summary>Simulated mode (this browser only)</summary>
+  <div class="tools">
+    <button class="btn" data-host="start">Start</button>
+    <select id="dbgDie"><option value="">Random die</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select>
+    <button class="btn" data-host="roll">Roll</button>
+    <button class="btn" data-host="next">Next quarter</button>
+    <button class="btn" data-host="finish">Finish</button>
+    <button class="btn" data-host="bots">Add 4 bots</button>
+    <button class="btn" data-host="botsChoose">Bots choose</button>
+    <button class="btn" data-host="reset">Reset</button>
+    <a class="btn" href="host.html" target="_blank" style="text-decoration:none">Open host page ↗</a>
+  </div>
+</details>
+
+<script type="module" src="js/student.js"></script>
+</body>
+</html>

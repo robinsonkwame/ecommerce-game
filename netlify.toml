@@ -1,0 +1,33 @@
+[build]
+  publish = "public"
+  functions = "netlify/functions"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[functions]
+  # Bundles the shared game code from public/js into each function.
+  node_bundler = "esbuild"
+
+# Netlify serves every site over HTTPS with an automatic certificate and
+# redirects http:// to https://. HSTS below makes browsers refuse plain HTTP
+# after the first visit.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "no-referrer"
+    X-Frame-Options = "DENY"
+
+# The functions declare their own /api/* paths (export const config).
+[[redirects]]
+  from = "/host"
+  to = "/host.html"
+  status = 200
+
+# `netlify dev`: serve public/ as static files plus the functions, no framework.
+[dev]
+  framework = "#static"
+  port = 8888
+  autoLaunch = false
