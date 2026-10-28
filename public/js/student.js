@@ -41,6 +41,7 @@ function render() {
   if (!S.slug || !t) {
     if (S.slug && g && !t) { localStorage.removeItem('ecg:slug'); S.slug = ''; }
     show('join');
+    if (g) renderHowTo(g.settings);
     $('#joinBtn').disabled = g?.phase === 'finished';
     $('#joinError').textContent = g?.phase === 'finished' ? 'The game is over. Ask the host to reset it.' : '';
     return;
@@ -266,6 +267,15 @@ export function renderTimeline(el, team) {
     q.textContent = h ? (h.action === 'buydown' ? `↓${h.qty}` : STRATEGIES[h.action].short.slice(0, 3)) : '·';
     el.appendChild(q);
   }
+}
+
+// The join page's rule summary, filled in from the live game's ruleset.
+function renderHowTo(s) {
+  $('#howRisk').textContent = `If your risk is above the die, you suffer a risk event: you ${penaltyText(s)}, and your risk resets to 0.`;
+  const ex = s.exchange;
+  $('#howCash').innerHTML = `<strong>Watch your cash.</strong> You start with $${s.startMoney.toLocaleString()}. ` +
+    (s.allowDebt ? 'You can go below $0 and keep playing.'
+      : `You can't spend money you don't have${ex ? `, but you can sell points for cash: ${ex.lotPoints} points for $${ex.lotDollars}` : ''}.`);
 }
 
 function renderPlaybook() {

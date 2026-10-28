@@ -23,13 +23,27 @@
   </header>
 
   <main>
-    <section id="join" class="card" hidden>
-      <h1>E-commerce strategy game</h1>
-      <p class="muted">Eight quarters. Pick a strategy each quarter, then the host rolls the Risk Dice. Highest points after two years wins.</p>
-      <label for="nameInput"><strong>Team name</strong></label>
-      <input type="text" id="nameInput" placeholder="The Fulfillers" maxlength="40" autocomplete="off">
-      <p class="error" id="joinError"></p>
-      <button class="btn primary big" id="joinBtn">Join the game</button>
+    <section id="join" hidden>
+      <div class="card">
+        <h1>E-commerce strategy game</h1>
+        <p class="muted">Your team runs an online business for two years. Choose a strategy each quarter, survive the Risk Dice, and finish with the most points.</p>
+        <label for="nameInput"><strong>Team name</strong></label>
+        <p class="small muted" style="margin:.1rem 0 .4rem">One name per group. Teammates who type the same name join the same team.</p>
+        <input type="text" id="nameInput" placeholder="The Fulfillers" maxlength="40" autocomplete="off">
+        <p class="error" id="joinError"></p>
+        <button class="btn primary big" id="joinBtn">Join the game</button>
+      </div>
+      <div class="card howto">
+        <h2>How it works</h2>
+        <ol>
+          <li><strong>8 quarters, a changing market.</strong> The market moves from New and Growing through Disruption to Winner takes all. Each quarter has a short description of what's happening.</li>
+          <li><strong>Pick one move per quarter:</strong> Influencers, Customer service, Business innovation, or Buy down risk. Each move costs money, earns points, and adds risk.</li>
+          <li><strong>Your instructor rolls the Risk Dice</strong> on the big screen once every team has chosen. <span id="howRisk">If your risk is above the die, you suffer a risk event: you lose points and your risk resets to 0.</span></li>
+          <li id="howCash"><strong>Watch your cash.</strong> You start with $600.</li>
+          <li><strong>Most points after 8 quarters wins.</strong> At the end you get a completion code to paste into the assignment for credit.</li>
+        </ol>
+        <p class="tip">Tip: read each quarter's market description before you choose. What works in a new market may not work in a saturated one.</p>
+      </div>
     </section>
 
     <section id="lobby" class="card" hidden>
