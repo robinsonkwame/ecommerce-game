@@ -114,7 +114,7 @@ function renderChoose() {
     b.className = 'choice' + (chosen?.action === key ? ' selected' : '') + (locked?.action === key ? ' locked' : '');
     b.disabled = !ok;
     const note = fundingNote({ action: key });
-    b.innerHTML = `<div class="head"><span class="title">${STRATEGIES[key].label}</span><span class="nums">−${fmtMoney(d.cost).slice(1)} · ${fmtSigned(d.score)} pts · ${fmtSigned(d.riskAdded)} risk</span></div>` +
+    b.innerHTML = `<div class="head"><span class="title">${STRATEGIES[key].label}</span><span class="nums">−${fmtMoney(d.cost)} · ${fmtSigned(d.score)} pts · ${fmtSigned(d.riskAdded)} risk</span></div>` +
       `<div class="hint">${STRATEGIES[key].hint}${locked?.action === key ? ' · <strong>locked in</strong>' : ''}${note ? `<br>${note}` : ''}</div>`;
     b.onclick = () => { S.choice = { action: key }; renderChoose(); };
     box.appendChild(b);
